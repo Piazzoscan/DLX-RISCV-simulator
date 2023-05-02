@@ -27,6 +27,7 @@ export class DLXInterpreter extends Interpreter{
             }
             if (rd) {
                 registers.r[rd] = registers.c;
+                registers.setBold(rd);
             }
             if(DiagramService.instance.isAuto()){
                 DiagramService.instance.addressVisible = false;
@@ -56,6 +57,7 @@ export class DLXInterpreter extends Interpreter{
             }
             if (rd) {
                 registers.r[rd] = registers.c;
+                registers.setBold(rd);
             }
             if(DiagramService.instance.isAuto()){
                 DiagramService.instance.addressVisible = false;
@@ -121,6 +123,7 @@ export class DLXInterpreter extends Interpreter{
             func(registers);
             if (rd) {
                 registers.r[rd] = registers.c;
+                registers.setBold(rd);
             }
             if(DiagramService.instance.isAuto()){
                 DiagramService.instance.load();
@@ -131,6 +134,8 @@ export class DLXInterpreter extends Interpreter{
             registers.a = registers.r[rs1];
             registers.mdr = registers.b = registers.r[rd];
             registers.mar = signExtend(offset) + registers.a;
+            registers.setBoldMar();
+            registers.setBoldMdr();
             let rest = (registers.mar >>> 0) % 4   //permette di capire a da quale byte partiamo per l'accesso in memoria  es: FFFF0003 -> 3 byte (quello meno significativo)
             registers.temp = rest;
             let addr = Math.floor((registers.mar >>> 0) / 4) >>> 0;
@@ -167,6 +172,7 @@ export class DLXInterpreter extends Interpreter{
             func(registers);
             if (rd) {
                 registers.r[rd] = registers.c;
+                registers.setBold(rd);
             }
             if(DiagramService.instance.isAuto()){
                 DiagramService.instance.addressVisible = false;
@@ -188,6 +194,7 @@ export class DLXInterpreter extends Interpreter{
             func(registers);
             this.interruptEnabled = true;
             (registers as DLXRegisters).ien = 0;
+            (registers as DLXRegisters).resetBoldIen();
             if(DiagramService.instance.isAuto()){
                 DiagramService.instance.addressVisible = false;
                 if(!DiagramService.instance.dlxDiagrams.clock.isRunning()){
@@ -269,6 +276,8 @@ export class DLXInterpreter extends Interpreter{
         if(inst) {
             let [opcode, alucode] = encoder[instruction];
             (registers as DLXRegisters).ir = parseInt(opcode + inputs_encoder[inst.type](argsFixed) + alucode, 2); //otteniamo l'istruzione scritta in 32 bit
+            (registers as DLXRegisters).setBold(0);
+            (registers as DLXRegisters).resetBoldReg();
             this.process_instruction[inst.type](lineFixed, instruction, argsFixed, inst.func, registers as DLXRegisters, memory, inst.unsigned,tagged);
         }
     }
@@ -288,9 +297,11 @@ export class DLXInterpreter extends Interpreter{
     public interrupt(registers: Registers): void {
         if (this.interruptEnabled) {
             (registers as DLXRegisters).iar = registers.pc;
+            (registers as DLXRegisters).setBoldIar();
             registers.pc = 0;
             this.interruptEnabled = false;
             (registers as DLXRegisters).ien = 1;
+            (registers as DLXRegisters).setBoldIen();
             // this.tmpReg = (registers as DLXRegisters).r;
             // (registers as DLXRegisters).r = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 

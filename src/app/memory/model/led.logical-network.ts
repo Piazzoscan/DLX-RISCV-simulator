@@ -52,8 +52,8 @@ export class LedLogicalNetwork extends LogicalNetwork {
     let cs = this.cs.find(el => el.address == address);
     if (this.clkType == "MEMRD*")
       this.clk();
-    
-    // se l'istruzione è del tipo IS ritorno il valore salvato in quella cella di memoria perchè significa 
+
+    // se l'istruzione è del tipo IS ritorno il valore salvato in quella cella di memoria perchè significa
     // che questa specifica store proviene da una load effettuata quando si esegue una store (dlx.interpreter.ts - line 103)
     // quindi gli interessa solamente il valore salvato in memoria e non vuole impartire nessun comnando al led.
 

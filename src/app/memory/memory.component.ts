@@ -16,6 +16,8 @@ import { isUndefined } from 'util';
 import { Counter } from './model/counter';
 import { CounterDialogComponent } from '../dialogs/counter-dialog.component';
 import { instructions } from '../interpreters/dlx/dlx.instructions';
+import { InputPort } from './model/input-port';
+import { InputPortDialogComponent } from '../dialogs/input-port-dialog.component';
 
 @Component({
   selector: 'app-memory',
@@ -44,8 +46,8 @@ export class MemoryComponent implements OnInit {
   get canMoveSelectedLeft(): boolean {
     let devices = this.memoryService.memory.devices;
     let index = devices.indexOf(this.selected);
-    return (this.selected.name !== 'EPROM' && this.selected.name != 'RAM B') &&
-      (index > 0);
+    return (this.selected.name !== 'EPROM' && this.selected.name != 'RAM_B') &&
+      (index > 0);;
   }
 
   get canMoveSelectedRight(): boolean {
@@ -59,13 +61,18 @@ export class MemoryComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   openDialogImage(n) {
-    console.log(n);
+    // console.log(n);
     if(this.selected.isACounter()){
       this.dialog.open(CounterDialogComponent, {
         data: { network: n as Counter}
+      });
+    } else if(this.selected.isAInputPort()){
+      this.dialog.open(InputPortDialogComponent,{
+        data: { network: n as InputPort}
       });
     } else {
       this.dialog.open(LogicalNetworkDialogComponent, {
@@ -88,7 +95,7 @@ export class MemoryComponent implements OnInit {
 
   onAddLed() {
     let firstAdd = this.memoryService.memory.firstFreeAddr(0x20000000) + 1;
-    this.memoryService.add(LedLogicalNetwork, firstAdd, firstAdd + 0x0000000C);
+    this.memoryService.add(LedLogicalNetwork, firstAdd, firstAdd + 0x0000003);
     this.memoryService.save();
   }
 
@@ -98,8 +105,24 @@ export class MemoryComponent implements OnInit {
     this.memoryService.save();
   }
 
+  onAddInputPort() {
+    let firstAdd = this.memoryService.memory.firstFreeAddr(0x20000000) + 1;
+    this.memoryService.add(InputPort, firstAdd, firstAdd + 0x00000003);
+    this.memoryService.save();
+    let device;
+    this.memoryService.memory.devices.forEach(dev => {
+      if(dev.min_address == firstAdd) {
+        device = (dev as InputPort);
+        device.updateName(this.memoryService.memory.setNameExt(this.memoryService.memory.Iports.length));
+      }
+    });
+    this.memoryService.memory.Iports.push(device);
+  }
+
 
   onDelete(dev: Device) {
+    if(dev.name.includes("INPUT_PORT"))
+      this.memoryService.memory.removePort(dev);
     this.memoryService.remove(dev);
     this.selected = null;
     this.memoryService.save();

@@ -12,7 +12,7 @@ export class CodeService {
   public editorMode: string;
 
   constructor(private dialog: MatDialog) {
-    
+
   }
 
   load() {
@@ -47,7 +47,7 @@ export class CodeService {
       ;
   }
 
-  save(fileName: string) { // saves the code locally on a file 
+  save(fileName: string) { // saves the code locally on a file
     window.localStorage.setItem(`code-${this.editorMode}`, this.content);
     var text = this.content;
     var blob = new Blob([text], { type: "text/plain"});
@@ -55,7 +55,7 @@ export class CodeService {
     anchor.download = fileName;
     anchor.href = window.URL.createObjectURL(blob);
     anchor.target ="_blank";
-    anchor.style.display = "none"; 
+    anchor.style.display = "none";
     document.body.appendChild(anchor);
     anchor.click();
     document.body.removeChild(anchor);

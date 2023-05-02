@@ -31,6 +31,7 @@ import { InstructionDialogComponent } from './dialogs/instruction-dialog.compone
 import { FormatBytePipe } from './pipes/formatByte.pipe';
 import { CounterDialogComponent } from './dialogs/counter-dialog.component';
 import { DiagramComponent } from './diagram/diagram.component'
+import { InputPortDialogComponent } from './dialogs/input-port-dialog.component';
 
 @NgModule({
    declarations: [
@@ -52,7 +53,8 @@ import { DiagramComponent } from './diagram/diagram.component'
       InstructionDialogComponent,
       FormatBytePipe,
       CounterDialogComponent,
-      DiagramComponent
+      DiagramComponent,
+      InputPortDialogComponent
    ],
    imports: [
       BrowserModule,
@@ -80,7 +82,8 @@ import { DiagramComponent } from './diagram/diagram.component'
       ErrorDialogComponent,
       SaveDialogComponent,
       InstructionDialogComponent,
-      CounterDialogComponent
+      CounterDialogComponent,
+      InputPortDialogComponent
    ],
    providers: [],
    bootstrap: [

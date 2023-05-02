@@ -28,6 +28,11 @@
           src="assets/img/counter/counter.png"
           (click)="selected == device ? selected = null : selected = device" [class.selected]="selected == device"
           [matTooltip]="device.name +' '+(device.ffd?'1':'0')" matTooltipPosition="above" matTooltipClass="device-size"/>
+        <img *ngIf="device.isAInputPort()" class=" icon_absolute" width="70px"
+          [style.left]="((device.min_address/1073741824)*100 -3.5).toFixed(2)+'%'"
+          src="assets/img/icon_port.png"
+          (click)="selected == device ? selected = null : selected = device" [class.selected]="selected == device"
+          [matTooltip]="device.name" matTooltipPosition="above" matTooltipClass="device-size"/>
       <!-- <mat-icon *ngIf="device.isALedNetwork()"
         aria-hidden="false" [ngClass]="{'amber': device.getCsValue('CS_READ_LED')}" class="icon_absolute"
         aria-label="Example home icon">
@@ -123,6 +128,9 @@
   </button>
   <button mat-menu-item (click)="onAddCounter()">
     <span>Counter</span>
+  </button>
+  <button mat-menu-item (click)="onAddInputPort()">
+    <span>Input-Port</span>
   </button>
 
 </mat-menu>

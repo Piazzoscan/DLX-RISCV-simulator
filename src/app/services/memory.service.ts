@@ -5,6 +5,7 @@ import { LedLogicalNetwork } from '../memory/model/led.logical-network';
 import { Counter } from '../memory/model/counter';
 import { Memory } from '../memory/model/memory';
 import { StartLogicalNetwork } from '../memory/model/start.logical-network';
+import { InputPort } from '../memory/model/input-port';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,8 @@ export class MemoryService {
       this.memory.add(LedLogicalNetwork, 0x24000000, 0x24000003, this.injector);
       this.memory.add(Counter, 0x29000000, 0x29000005, this.injector);
       this.memory.add('RAM_B', 0x38000000, 0x3FFFFFFF);
+      this.memory.add(InputPort, 0x0C000000, 0x0C000003, this.injector);
+      // 0x20000000
     }
   }
 

@@ -8,13 +8,25 @@
       <button mat-raised-button class="mr" [disabled]="isInterruptDisabled" (click)="onInterrupt()">
         <span class="btn">Interrupt <i class="fas fa-bolt amber"></i></span>
       </button>
-      <button mat-raised-button class="mr" [matMenuTriggerFor]="menu" >
+      <!-- <button mat-raised-button class="mr" [disabled]="isInterruptDisabled" (click)="onInterruptPort()">
+        <span class="btn">Input Port <i class="fas fa-bolt amber"></i></span>
+      </button> -->
+      <button mat-raised-button class="mr" [matMenuTriggerFor]="menuInputPort" [disabled]="isInterruptDisabled">
+        <span class="btn">Int Port <i class="fas fa-bolt amber"></i></span>
+      </button>
+      <mat-menu #menuInputPort="matMenu" >
+        <ng-container *ngFor="let device of memoryService.memory.Iports">
+          <button mat-menu-item (click)="onInterruptPort(device.name)">{{ device.name }}</button>
+        </ng-container>
+      </mat-menu>
+
+      <button mat-raised-button class="mr" [matMenuTriggerFor]="menu">
         <span class="btn">Save code<i class="fas fa-save"></i></span>
       </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="onSave()">Save As</button>
-          <button mat-menu-item (click)="browserSave()">Save</button>
-        </mat-menu>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onSave()">Save As</button>
+        <button mat-menu-item (click)="browserSave()">Save</button>
+      </mat-menu>
       <button mat-raised-button class="mr" (click)="onClear()">
         <span class="btn">Restore default code<i class="fas fa-trash"></i></span>
       </button>

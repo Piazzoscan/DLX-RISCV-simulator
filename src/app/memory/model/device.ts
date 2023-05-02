@@ -33,6 +33,10 @@ export class Device {
     return null != this.cs.find(el => el.id == "CS_READ_VALUE_COUNTER");
   }
 
+  public isAInputPort() {
+    return null != this.cs.find(el => el.id == "CS_PORT_A");
+  }
+
   public isAStartNetwork() {
     return null != this.cs.find(el => el.id == "CS_READ_STARTUP");
   }
@@ -81,6 +85,10 @@ export class Device {
     this.max_address = max_address;
     this.cs = [];
     this.devType = "RAM";
+  }
+
+  public updateName(name_ext: string){
+    this.name = name_ext;
   }
 
   public setMaxAddress(v: number) {

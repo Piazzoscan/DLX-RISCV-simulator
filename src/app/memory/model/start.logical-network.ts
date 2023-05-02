@@ -54,7 +54,7 @@ export class StartLogicalNetwork extends LogicalNetwork {
   public load(address: number, instrType?: string): number {
     let cs = this.cs.find(el => el.address == address);
     if (this.clkType == "MEMRD*") this.clk();
-    
+
     // Metto il controllo instrType==IS per gli stessi motivi per cui lo metto in  led e counter.
     // Vedere commenti nei rispettivi componenti.
 

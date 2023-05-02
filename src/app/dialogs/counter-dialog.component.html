@@ -24,7 +24,7 @@
                 <input matInput [(ngModel)]="this.data.network.loadValue" >
             </mat-form-field>
         </div>
-        <div style="display:inline-block; margin:10px;" *ngIf="data.network.clkType">    
+        <div style="display:inline-block; margin:10px;" *ngIf="data.network.clkType">
             <mat-form-field appearance="fill">
                 <mat-label>Clock Type</mat-label>
                 <mat-select [(value)]="data.network.clkType">
@@ -36,7 +36,7 @@
     </div>
     <div>
     <div style="float: left;">
-        <div style="display:inline-block; margin:10px;" *ngIf="data.network.a_reset_value">    
+        <div style="display:inline-block; margin:10px;" *ngIf="data.network.a_reset_value">
             <mat-form-field appearance="outline">
                 <mat-label>A_RES FFD</mat-label>
                 <mat-select [(value)]="data.network.a_res_value_ffd"> <!--  [disabled]="data.isReadOnly" -->
@@ -55,7 +55,7 @@
         </div>
     </div>
     <div style="float: right;">
-        <div style="display:inline-block; margin:10px;" *ngIf="data.network.a_reset_value">    
+        <div style="display:inline-block; margin:10px;" *ngIf="data.network.a_reset_value">
             <mat-form-field appearance="outline">
                 <mat-label>A_RES</mat-label>
                 <mat-select [(value)]="data.network.a_reset_value"> <!--  [disabled]="data.isReadOnly" -->
@@ -66,7 +66,7 @@
         </div>
     </div>
     </div>
-    <br /> <br /><br /> <br /><br /> <br /> 
+    <br /> <br /><br /> <br /><br /> <br />
     <div *ngIf="data.network.cs.length > 0">
         <b>Chip-Select</b><br />
         <span *ngFor="let cs of data.network.cs">

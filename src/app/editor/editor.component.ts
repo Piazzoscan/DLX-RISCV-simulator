@@ -1,5 +1,5 @@
 import { animate, group, query, style, transition, trigger } from "@angular/animations";
-import { AfterViewInit, ApplicationRef, Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ApplicationRef, Component, EventEmitter, HostListener, OnInit, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
@@ -18,6 +18,8 @@ import { DiagramService } from "../services/diagram.service";
 import { MemoryService } from '../services/memory.service.js';
 import './modes/dlx.js';
 import './modes/rv32i.js';
+import { InputPort } from "../memory/model/input-port";
+import { Device } from "../memory/model/device";
 
 @Component({
   selector: 'app-editor',
@@ -46,7 +48,7 @@ import './modes/rv32i.js';
     ])
   ],
 })
-export class EditorComponent implements AfterViewInit, OnDestroy {
+export class EditorComponent implements OnInit,AfterViewInit, OnDestroy {
 
   @ViewChild('codeEditor', { static: false }) codeEditor: CodemirrorComponent;
   @ViewChild('form', { static: false }) form: NgForm;
@@ -164,10 +166,12 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.storeCode();
     this.doc.on("change", (event) => {
+      console.log(event);
       if (this.running) this.onStop();
       if (this.errorMessage) { this.doc.removeLineClass(this.runnedLine, 'wrap', 'error'); this.errorMessage = undefined; }
     });
     this.formStatusChangeSub = this.form.statusChanges.subscribe(v => this.formDirtyChange.emit(this.form.dirty));
+
   }
 
   continuousRun() {
@@ -280,6 +284,16 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     this.codeService.interpreter.interrupt(this.registers);
   }
 
+  onInterruptPort(dev_name : string) {
+    console.log(dev_name);
+    this.memoryService.memory.devices.forEach(dev => {
+      if(dev_name == dev.name){
+        (dev as InputPort).setInterrupt();
+      }
+    });
+    this.codeService.interpreter.interrupt(this.registers);
+  }
+
   // METODO CHE SALVA IL CODICE IN MEMORIA (nella EPROM)
   // Per ogni riga invoca il metodo encode che restituisce la codifica di quella riga di comando
 
@@ -296,6 +310,11 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     if (this.form.dirty) {
       $event.returnValue = true;
     }
+  }
+
+  ngOnInit(){
+    //creo Array delle Porte in Input
+    this.memoryService.memory.popolaIPorts();
   }
 
   ngOnDestroy() {

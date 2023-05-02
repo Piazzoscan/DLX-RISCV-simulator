@@ -2,11 +2,12 @@
   <div class="gpr">
     <span>GPR</span>
     <div class="gpr-back" *ngIf="isDLX">
-      <div class="gpr-row" *ngFor="let r of dlxRegisters.r; index as i">
+      <div class="gpr-row" *ngFor="let r of dlxRegisters.r; index as i;">
         <div class="index">R{{i}}</div>
-        <div class="register">
+        <div class="register" [ngStyle]="{'font-weight': dlxRegisters.rBold[i], 'background-color': (dlxRegisters.rBold[i]=='bold') ? '#5a5a5a' : ''}">
           {{r | format: fType}}
         </div>
+        <!-- <input class="register" type="text" readonly [value]="r | format: fType" [ngStyle]="{'font-weight': dlxRegisters.rBold[i]}"/> -->
       </div>
     </div>
     <div class="gpr-back" *ngIf="isRV32I">
@@ -18,17 +19,25 @@
   </div>
   <div *ngIf="isDLX">
     <span>PC</span>
-    <div class="register special">{{registers.pc | format: fType}}</div>
+    <div class="register special" [ngStyle]="{'font-weight': 'bold', 'background-color': '#5a5a5a'}">{{registers.pc | format: fType}}</div>
     <span>IAR</span>
-    <div class="register special">{{dlxRegisters.iar | format: fType}}</div>
+    <div class="register special" [ngStyle]="{'font-weight': dlxRegisters.iarBold, 'background-color': (dlxRegisters.iarBold=='bold') ? '#5a5a5a' : ''}">
+      {{dlxRegisters.iar | format: fType}}
+    </div>
     <span>IEN</span>
-    <div class="register special">{{dlxRegisters.ien | format: 'dec'}}</div>
+    <div class="register special" [ngStyle]="{'font-weight': dlxRegisters.ienBold, 'background-color': (dlxRegisters.ienBold=='bold') ? '#5a5a5a' : ''}">
+      {{dlxRegisters.ien | format: 'dec'}}
+    </div>
     <span>MAR</span>
-    <div class="register special">{{dlxRegisters.mar | format: fType}}</div>
+    <div class="register special" [ngStyle]="{'font-weight': dlxRegisters.marBold, 'background-color': (dlxRegisters.marBold=='bold') ? '#5a5a5a' : ''}">
+      {{dlxRegisters.mar | format: fType}}
+    </div>
     <span>IR</span>
-    <div class="register special">{{dlxRegisters.ir | format: fType}}</div>
+    <div class="register special" [ngStyle]="{'font-weight': 'bold', 'background-color': '#5a5a5a'}">{{dlxRegisters.ir | format: fType}}</div>
     <span>MDR</span>
-    <div class="register special">{{dlxRegisters.mdr | format: fType}}</div>
+    <div class="register special" [ngStyle]="{'font-weight': dlxRegisters.mdrBold, 'background-color': (dlxRegisters.mdrBold=='bold') ? '#5a5a5a' : ''}">
+      {{dlxRegisters.mdr | format: fType}}
+    </div>
     <br />
     <mat-form-field appearance="fill">
       <mat-label>Format values</mat-label>
