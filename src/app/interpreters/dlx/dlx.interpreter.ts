@@ -115,10 +115,9 @@ export class DLXInterpreter extends Interpreter{
             registers.a = registers.r[rs1];
             registers.b = registers.r[rd];
             registers.mar = signExtend(offset) + registers.a;
-            let rest = (registers.mar >>> 0) % 4   //permette di capire a da quale byte partiamo per l'accesso in memoria  es: FFFF0003 -> 3 byte (quello meno significativo)
+            let rest = (registers.mar >>> 0) % 4   //permette di capire da quale byte partiamo per l'accesso in memoria  es: FFFF0003 -> 3 byte (quello meno significativo)
             let addr = Math.floor((registers.mar >>> 0) / 4) >>> 0;
             registers.mdr = memory.load(addr,"IL");
-            ///console.log("mdr: ",registers.mdr.toString(16))
             registers.temp = rest
             func(registers);
             if (rd) {
@@ -195,6 +194,7 @@ export class DLXInterpreter extends Interpreter{
             this.interruptEnabled = true;
             (registers as DLXRegisters).ien = 0;
             (registers as DLXRegisters).resetBoldIen();
+            DiagramService.instance.dlxDiagrams.ienDown();
             if(DiagramService.instance.isAuto()){
                 DiagramService.instance.addressVisible = false;
                 if(!DiagramService.instance.dlxDiagrams.clock.isRunning()){
@@ -302,6 +302,7 @@ export class DLXInterpreter extends Interpreter{
             this.interruptEnabled = false;
             (registers as DLXRegisters).ien = 1;
             (registers as DLXRegisters).setBoldIen();
+            DiagramService.instance.dlxDiagrams.ienUp();
             // this.tmpReg = (registers as DLXRegisters).r;
             // (registers as DLXRegisters).r = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 

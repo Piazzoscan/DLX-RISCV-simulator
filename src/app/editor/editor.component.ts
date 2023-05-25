@@ -103,7 +103,6 @@ export class EditorComponent implements OnInit,AfterViewInit, OnDestroy {
     if (this.doc && (val != this._pc || !this.running)) {
       let pre = Math.floor(this._pc / 4);
       let cur = Math.floor(val / 4);
-      // G console.log("vediamo quale linea sta eseguendo");
       if (!this.running) {
         this.doc.removeLineClass(this.previousLine, 'wrap', 'runned');
         this.doc.removeLineClass(pre, 'wrap', 'next');
@@ -285,7 +284,6 @@ export class EditorComponent implements OnInit,AfterViewInit, OnDestroy {
   }
 
   onInterruptPort(dev_name : string) {
-    console.log(dev_name);
     this.memoryService.memory.devices.forEach(dev => {
       if(dev_name == dev.name){
         (dev as InputPort).setInterrupt();

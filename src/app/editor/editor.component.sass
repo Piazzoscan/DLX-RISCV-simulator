@@ -3,7 +3,7 @@
 :host
     width: 100%
     height: 100%
-    
+
 form
     width: 100%
     height: 100%
@@ -38,7 +38,7 @@ button[disabled=true] svg
     margin-top: 1rem
     .right
         float: right
-        
+
     .mat-raised-button
         height: fit-content
         margin: 13.5px 0
@@ -56,3 +56,31 @@ input[type=number]
     &::-webkit-inner-spin-button, &::-webkit-outer-spin-button
         -webkit-appearance: none
         margin: 0
+
+
+@media (prefers-reduced-motion: no-preference)
+  .clock
+    animation: clockTranslate 0s linear infinite
+    -webkit-animation: clockTranslate 0s linear infinite
+    -moz-animation: clockTranslate 0s linear infinite
+    -o-animation: clockTranslate 0s linear infinite
+  .general
+    animation: generalTranslate 0s linear 1
+    -webkit-animation: generalTranslate 0s linear 1
+    -moz-animation: generalTranslate 0s linear 1
+    -o-animation: generalTranslate 0s linear 1
+
+.diagram
+  width: 300px
+  height: 75px
+  border: 1px solid
+  border-color: #000
+  overflow: hidden
+  position: relative
+  border-radius: 5px
+  margin-top: .3em
+  margin-bottom: 1em
+
+.diagrams
+  align-items: center
+  margin-left: 5em

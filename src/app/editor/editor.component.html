@@ -6,20 +6,24 @@
   <div class="btn-container">
     <div class="right">
       <button mat-raised-button class="mr" [disabled]="isInterruptDisabled" (click)="onInterrupt()">
-        <span class="btn">Interrupt <i class="fas fa-bolt amber"></i></span>
+        <span class="btn">Int (Led) <i class="fas fa-bolt amber"></i></span>
       </button>
-      <!-- <button mat-raised-button class="mr" [disabled]="isInterruptDisabled" (click)="onInterruptPort()">
-        <span class="btn">Input Port <i class="fas fa-bolt amber"></i></span>
-      </button> -->
-      <button mat-raised-button class="mr" [matMenuTriggerFor]="menuInputPort" [disabled]="isInterruptDisabled">
-        <span class="btn">Int Port <i class="fas fa-bolt amber"></i></span>
+      <button mat-raised-button class="mr" *ngIf="memoryService.memory.portmapped" [matMenuTriggerFor]="menuInputPort" [disabled]="isInterruptDisabled">
+        <span class="btn">Int (Input Port) <i class="fas fa-bolt amber"></i></span>
       </button>
-      <mat-menu #menuInputPort="matMenu" >
+      <mat-menu #menuInputPort="matMenu">
         <ng-container *ngFor="let device of memoryService.memory.Iports">
           <button mat-menu-item (click)="onInterruptPort(device.name)">{{ device.name }}</button>
         </ng-container>
       </mat-menu>
 
+      <!-- <span>IEN</span>
+        <div class="diagram">
+            <img class="{{diagramService.dlxDiagrams.ien.getAnimationClass()}}" [ngStyle]="{  'animation-duration': diagramService.dlxDiagrams.clock.getAnimationDuration() + 'ms',
+                                                                                                'animation-play-state': diagramService.dlxDiagrams.ien.getPlayState(),
+                                                                                                'animation-iteration-count': '1',
+                                                                                                'animation-fill-mode': 'initial'}" src="{{diagramService.dlxDiagrams.ien.getImageName()}}" width="855" height="75" alt="memrd-signal" />
+        </div> -->
       <button mat-raised-button class="mr" [matMenuTriggerFor]="menu">
         <span class="btn">Save code<i class="fas fa-save"></i></span>
       </button>

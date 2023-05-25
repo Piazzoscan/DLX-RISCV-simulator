@@ -11,7 +11,7 @@ import { InputPort } from "./input-port";
 export class Memory {
   devices: Device[] = [];
   Iports: Device[] = [];
-  port_mapped : number = 0;
+  portmapped: boolean = false; //flag che ci dice se almeno una porta è mappata
 
   public firstFreeAddr(startAddr): number {
     for (let i = 0; i < this.devices.length - 1; i++) {
@@ -71,6 +71,10 @@ export class Memory {
       }
       this.devices = this.devices.sort((a, b) => a.min_address - b.min_address);
     }
+
+    if(name == InputPort){
+      this.portmapped = true;
+    }
   }
 
   public get(name: string): Device {
@@ -79,6 +83,8 @@ export class Memory {
 
   public remove(dev: Device): void {
     this.devices = this.devices.filter((device) => device != dev);
+    if(this.Iports.length == 0)
+      this.portmapped = false;
   }
 
   public load(address: number, instrType?: string): number {
@@ -109,12 +115,10 @@ export class Memory {
 
   public removePort(dev : Device){
     this.Iports = this.Iports.filter(el => el != dev);
-    // console.log(this.Iports);
   }
 
   //setto i nomi in base a quante input port ho mappato
   setNameExt(num : number) : string{
-    // console.log("num: " + num);
     if(num == 0)
       return "INPUT_PORT_A";
     else if (num == 1)
@@ -133,11 +137,13 @@ export class Memory {
     this.devices.forEach(dev => {
       if(dev.name.includes('INPUT_PORT')){
         dev.updateName(this.setNameExt(i));
-        // console.log(dev);
         this.Iports.push((dev as InputPort));
         i++;
       }
     })
-    // console.log(this.Iports);
+    if(this.Iports.length > 0)
+      this.portmapped = true;
+    else
+      this.portmapped = false;
   }
 }

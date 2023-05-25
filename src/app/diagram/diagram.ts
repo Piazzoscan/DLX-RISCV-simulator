@@ -6,7 +6,7 @@ export interface IDiagram{
 }*/
 
 export class Diagram{
-  
+
   type: string; //indica il tipo di diagramma
   running: boolean; //indica lo stato dell'animazione, se sta scorrendo oppure no
   paused: boolean; //indica se l'animazione è stata messa in pausa
@@ -39,11 +39,11 @@ export class Diagram{
   public getAnimationClass(){
     return this.animationClass;
   }
-  
+
   public getAnimationDuration(){
     return this.animationDuration;
   }
-  
+
   /*METODI SETTER*/
   public setType(type: string){
     if(type != ''){
@@ -72,12 +72,12 @@ export class Diagram{
   }
 
   /*METODI PER IL CONTROLLO DELLE ANIMAZIONI */
-  
+
   /*Per mettere in pausa l'animazione*/
   public pause(){
     this.setPaused(true);
   }
-  
+
   /*Per far partire l'animazione*/
   public start(){
     if(this.isPaused()){
@@ -113,7 +113,7 @@ export class Diagram{
 
   /*Metodo che ritorna il nome dell'immagine del componente */
   public getImageName() {
-    return ("assets/img/diagram/"+this.getType()+".png"); 
+    return ("assets/img/diagram/"+this.getType()+".png");
   }
 
   public getPlayState(){

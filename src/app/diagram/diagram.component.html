@@ -6,7 +6,7 @@
     <button mat mat-raised-button class="mr" (click)="setManual()">
         <span class="btn">Manual Mode</span>
     </button>-->
-    <button mat-raised-button class="mr" (click)="diagramService.isAuto() ? diagramService.setManual() : diagramService.setAuto()"> 
+    <button mat-raised-button class="mr" (click)="diagramService.isAuto() ? diagramService.setManual() : diagramService.setAuto()">
       <span class="btn" *ngIf="diagramService.isAuto()">Auto Mode <i class="fas fa-microchip"></i></span>
       <span class="btn" *ngIf="!diagramService.isAuto()"> Manual Mode <i class="fas fa-user"></i></span>
     </button>
@@ -21,7 +21,7 @@
         <span class="btn">Resume</span>
     </button> -->
     <button mat-raised-button class="mr" (click)="diagramService.isPauseEnabled() ? diagramService.pause() : diagramService.resume()"
-    [disabled]="!diagramService.isStopEnabled()"> 
+    [disabled]="!diagramService.isStopEnabled()">
       <span class="btn" *ngIf="!diagramService.isPauseEnabled()" >Resume <i class="fas fa-play green"></i></span>
       <span class="btn" *ngIf="diagramService.isPauseEnabled()">Pause <i class="fas fa-pause green"></i></span>
     </button>
@@ -48,7 +48,7 @@
     <span>CLOCK</span>
         <div class="diagram">
             <img class="{{diagramService.dlxDiagrams.clock.getAnimationClass()}}" [ngStyle]="{  'animation-duration': diagramService.dlxDiagrams.clock.getAnimationDuration() + 'ms',
-                                                                                                'animation-play-state': diagramService.dlxDiagrams.clock.getPlayState(), 
+                                                                                                'animation-play-state': diagramService.dlxDiagrams.clock.getPlayState(),
                                                                                                 'animation-iteration-count': 'infinite'}" src="{{diagramService.dlxDiagrams.clock.getImageName()}}" width="855" height="75" alt="clock-signal" />
         </div>
     <span>ADDRESS</span><span *ngIf="diagramService.isAddressVisible()">    {{registers.mar | format: 'hex'}}h</span>

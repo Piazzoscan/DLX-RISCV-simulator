@@ -15,9 +15,9 @@
           (formDirtyChange)="isFormDirty = $event"
         ></app-editor>
         <!--bottone per visualizzare i diagrammi dei segnali-->
-        <button mat-raised-button class="mr" (click)="toggleDiagrams()"> 
-          <span class="btn" *ngIf="this.isDiagramsOpened()">Hide Diagrams <i class="fas fa-wave-square"></i></span>
-          <span class="btn" *ngIf="!this.isDiagramsOpened()">Show Diagrams <i class="fas fa-wave-square"></i></span>
+        <button mat-raised-button class="mr" (click)="toggleDiagrams()">
+          <span class="btn" *ngIf="this.isDiagramsOpened()">Hide Waves Form <i class="fas fa-wave-square"></i></span>
+          <span class="btn" *ngIf="!this.isDiagramsOpened()">Show Waves Form <i class="fas fa-wave-square"></i></span>
         </button>
         <!--
         <button mat-raised-button class="mr" (click)="toggleDiagrams()">
@@ -26,7 +26,7 @@
         <app-memory [memoryService]="memoryService"></app-memory>
       </div>
       <div class="right">
-        <app-diagram 
+        <app-diagram
         [diagramService]="diagramService"
         *ngIf="this.isDiagramsOpened() == true"
         [registers]="registers"

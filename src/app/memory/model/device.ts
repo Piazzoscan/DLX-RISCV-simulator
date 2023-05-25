@@ -34,7 +34,7 @@ export class Device {
   }
 
   public isAInputPort() {
-    return null != this.cs.find(el => el.id == "CS_PORT_A");
+    return null != this.cs.find(el => el.id == "CS_INPUT_PORT");
   }
 
   public isAStartNetwork() {
@@ -151,10 +151,7 @@ export class Device {
   // filippo.comastri2@studio.unibo.it
 
   public load(address: number,instrType?: string): number {
-    //console.log("indirizzo: ", address, " instrType: ",instrType);
     let res = this.memory[address - this.min_address];
-    //console.log(res," indirizzo: ",this.getAddressHex(address - this.min_address));
-    //console.log("min_address: ",this.min_address,this.getAddressHex(this.min_address))
     return res;
   }
 

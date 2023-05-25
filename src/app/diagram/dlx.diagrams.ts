@@ -9,6 +9,7 @@ export class DLXDiagrams {
     memrd: Diagram;
     memwr: Diagram;
     data: Diagram;
+    ien: Diagram;
 
     constructor(private appRef: ApplicationRef) {
         //creo i 5 diagram per i cicli di bus
@@ -17,6 +18,7 @@ export class DLXDiagrams {
         this.memrd = new Diagram('memrd', 'general', this.appRef);
         this.memwr = new Diagram('memwr', 'general', this.appRef);
         this.data = new Diagram('data_in', 'general', this.appRef);
+        this.ien = new Diagram('fronte_salita', 'general', this.appRef);
     }
 
     /*METODI PUBBLICI INVOCATI DA DiagramService */
@@ -26,6 +28,7 @@ export class DLXDiagrams {
         this.memrd.resume();
         this.memwr.resume();
         this.data.resume();
+        this.ien.resume();
     }
 
     public stop() {
@@ -34,6 +37,7 @@ export class DLXDiagrams {
         this.memrd.stop();
         this.memwr.stop();
         this.data.stop();
+        this.ien.stop();
     }
 
     public pause() {
@@ -42,10 +46,13 @@ export class DLXDiagrams {
         this.memrd.pause();
         this.memwr.pause();
         this.data.pause();
+        this.ien.pause();
     }
 
     /*CICLO DI BUS DI LETTURA*/
     public load() {
+      // console.log(this.memrd.getAnimationClass());
+      // console.log(this.memrd.getType());
         //setto data come data_in
         this.data.setType("data_in");
         //resetto e faccio partire
@@ -104,5 +111,24 @@ export class DLXDiagrams {
         this.memrd.setAnimationDuration(animationDuration);
         this.memwr.setAnimationDuration(animationDuration);
         this.data.setAnimationDuration(animationDuration);
+        this.ien.setAnimationDuration(animationDuration);
+    }
+
+    public ienUp(){
+      this.ien.setType("fronte_salita");
+      this.ien.stop();
+      this.ien.start();
+      this.stableFronte("fronte_discesa");
+    }
+
+    public stableFronte(img: string){
+      this.ien.setType(img);
+    }
+
+    public ienDown(){
+      this.ien.setType("fronte_discesa");
+      this.ien.stop();
+      this.ien.start();
+      this.stableFronte("fronte_salita");
     }
 }

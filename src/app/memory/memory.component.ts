@@ -328,7 +328,7 @@ export class MemoryComponent implements OnInit {
 
   openImageInterrupt() {
     this.dialog.open(ImageDialogComponent, {
-      data: { src: "assets/img/rete-interrupt.jpg" }
+      data: { src: "assets/img/rete-interrupt2.jpg" }
     });
   }
 }

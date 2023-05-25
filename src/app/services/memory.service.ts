@@ -33,7 +33,6 @@ export class MemoryService {
       this.memory.add(Counter, 0x29000000, 0x29000005, this.injector);
       this.memory.add('RAM_B', 0x38000000, 0x3FFFFFFF);
       this.memory.add(InputPort, 0x0C000000, 0x0C000003, this.injector);
-      // 0x20000000
     }
   }
 

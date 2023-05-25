@@ -14,13 +14,11 @@ export class InputPort extends LogicalNetwork {
     super.devType = "IPort";
     this.clkType = "MEMRD*";
     this.cs = [];
-    // this.a_reset_value = "RESET";
-    // this.a_set_value = "RESET" ;
     this.data = 0; //poi generemo un numero random
     this.size_port = 8; //default 8 bit
     this.int_a = false;
-    this.setCS("CS_PORT_A", this.min_address, 0); // effettuando lettura a questo cs si ottiene il valore generato dalla ports in input
-    this.setCS("CS_READ_INT", this.min_address + 0x00000001, 1); //leggo se l'interrup è stato generato dalla porta
+    this.setCS("CS_INPUT_PORT", this.min_address, 0); // effettuando lettura a questo cs si ottiene il valore generato dalla ports in input
+    this.setCS("CS_READ_INT_INPUT_PORT", this.min_address + 0x00000001, 1); //leggo se l'interrup è stato generato dalla porta
   }
 
   public getImageName() {
@@ -29,7 +27,6 @@ export class InputPort extends LogicalNetwork {
   }
 
   public getData() {
-    console.log("data: "+this.data);
     return this.data;
   }
 
@@ -47,14 +44,13 @@ export class InputPort extends LogicalNetwork {
     if (this.clkType == "MEMWR*") console.log("clk è MEMWR*");
 
     switch (cs.id) {
-      case "CS_READ_INT":
-        // console.log(this.int_a);
+      case "CS_READ_INT_INPUT_PORT":
         return this.int_a ? 1 : 0;
-      case "CS_PORT_A":
+      case "CS_INPUT_PORT":
         if(this.clkType == "MEMRD*"){
           this.int_a = false;
           this.generateData();
-          this.setCS("CS_PORT_A",this.min_address,this.data);
+          this.setCS("CS_INPUT_PORT",this.min_address,this.data);
           return this.getData();
         }
     }

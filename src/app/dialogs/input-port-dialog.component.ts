@@ -18,7 +18,6 @@ export class InputPortDialogComponent implements OnInit{
     //setto la lunghezza della porta in input
     let dim = this.data.network.size_port;
     if(dim != 8 && dim != 16 && dim != 32){
-      // console.log("Size non corretta");
       this.dialog.open(ErrorDialogComponent,{
         data: { message: "Size Port must be: 8 / 16 / 32 bit" }
       })
@@ -30,7 +29,6 @@ export class InputPortDialogComponent implements OnInit{
   ngOnInit(){
     this.dim_last = this.data.network.size_port;
     this.url_image = "assets/img/input-port/input_port_bit_"+this.dim_last+".png"
-    // console.log("ngOnInit");
   }
 
 }
