@@ -29,7 +29,7 @@ export class CodeService {
         "handler:" +
         "\tLHI R29, 0x3000\t\t\t\t; set R29 = 0x30000000h (INPUT_PORT address)\n"+
         "\t\t\tLBU R28, 0x0004(R29)\t\t; read interrupt INPUT_PORT signal into R28\n" +
-        "\t\t\tBNEZ R28, input_port\t\t; if INT_I == 0 then jump to (interrupt) input_port\n" +
+        "\t\t\tBNEZ R28, input_port\t\t; if INT_I != 0 then jump to (interrupt) input_port\n" +
         "\t\t\tLHI R29, 0x9000\t\t\t\t; set R29 = 0x90000000h (LED address)\n"+
         "\t\t\tSB R0, 0x0004(R29)\t\t\t; switch LED signal\n" +
         "\t\t\tLW R28, 0x0004(R30)\t\t\t; restore R28 value from memory (RAM)\n" +
@@ -46,7 +46,7 @@ export class CodeService {
         "\t\t\tSUBI R4,R4,0x0001\t\t\t; decrease R4 by 1\n" +
         "\t\t\tBEQZ R4,main\t\t\t\t; Jump to main if R4 == 0\n" +
         "\t\t\tJ loop\t\t\t\t\t\t; Jump to loop:\n" +
-        "\ninput_port:\tLBU R20, 0x0000(R29)\t\t; read data from input_port (CS_READ_PORT address)\n" +
+        "\ninput_port:\tLBU R20, 0x0000(R29)\t\t; read data from input_port (CS_READ_INT_INPUT_PORT address)\n" +
         "\t\t\tRFE\n"
         : 'main: ')
       ;
