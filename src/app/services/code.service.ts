@@ -46,7 +46,7 @@ export class CodeService {
         "\t\t\tSUBI R4,R4,0x0001\t\t\t; decrease R4 by 1\n" +
         "\t\t\tBEQZ R4,main\t\t\t\t; Jump to main if R4 == 0\n" +
         "\t\t\tJ loop\t\t\t\t\t\t; Jump to loop:\n" +
-        "\ninput_port:\tLBU R20, 0x0000(R29)\t\t; read data from input_port (CS_READ_INT_INPUT_PORT address)\n" +
+        "\ninput_port:\tLBU R20, 0x0000(R29)\t\t; read data from input_port (CS_INPUT_PORT address)\n" +
         "\t\t\tRFE\n"
         : 'main: ')
       ;
